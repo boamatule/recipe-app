@@ -15,6 +15,10 @@
     {
       "source": "/api/(.*)",
       "destination": "http://localhost:5174/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
