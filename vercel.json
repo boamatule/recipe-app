@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "http://localhost:5174/api/$1"
+      "destination": "https://www.themealdb.com/api/json/v1/"
     },
     {
       "source": "/(.*)",
