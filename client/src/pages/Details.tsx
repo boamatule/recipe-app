@@ -7,6 +7,7 @@ import { MealSkeleton } from "../components/MealSkeleton";
 import { Heart, Play } from "lucide-react";
 import { useFavorites } from "../hooks/useFavorites";
 import { toast } from "sonner";
+import { useI18n } from "../i18n";
 
 function parseIngredients(meal: Meal) {
   const items: string[] = [];
@@ -24,6 +25,7 @@ function parseIngredients(meal: Meal) {
 export default function Details() {
   const { id } = useParams();
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { t } = useI18n();
   const query = useQuery({
     queryKey: ["meal", id],
     queryFn: () => getMeal(id || ""),
@@ -35,7 +37,7 @@ export default function Details() {
   if (!meal)
     return (
       <div className="rounded-lg border border-dashed border-border p-6 text-center text-muted-foreground">
-        Recipe not found. It may be unavailable offline.
+        {t("notFound")}
       </div>
     );
 
@@ -64,12 +66,12 @@ export default function Details() {
             onClick={async () => {
               const wasFavorite = isFavorite(meal.idMeal);
               await toggleFavorite(meal);
-              toast.success(wasFavorite ? "Removed favorite" : "Saved to favorites");
+              toast.success(wasFavorite ? t("unfavorite") : t("favorite"));
             }}
             aria-pressed={favorite}
           >
             <Heart className="h-5 w-5" />
-            {favorite ? "Unfavorite" : "Favorite"}
+            {favorite ? t("unfavorite") : t("favorite")}
           </Button>
         </div>
         {meal.strMealThumb ? (
@@ -86,7 +88,7 @@ export default function Details() {
           </div>
         ) : null}
         <section className="space-y-2">
-          <h2 className="text-lg font-semibold">Instructions</h2>
+          <h2 className="text-lg font-semibold">{t("instructions")}</h2>
           <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
             {meal.strInstructions}
           </p>
@@ -94,7 +96,7 @@ export default function Details() {
       </div>
       <aside className="space-y-4">
         <section className="rounded-lg border border-border p-4">
-          <h3 className="text-lg font-semibold">Ingredients</h3>
+          <h3 className="text-lg font-semibold">{t("ingredients")}</h3>
           <ul className="mt-3 space-y-2 text-sm">
             {ingredients.map((item) => (
               <li key={item} className="flex items-start gap-2">
@@ -106,7 +108,7 @@ export default function Details() {
         </section>
         {meal.strTags ? (
           <section className="rounded-lg border border-border p-4">
-            <h3 className="text-lg font-semibold">Tags</h3>
+            <h3 className="text-lg font-semibold">{t("tags")}</h3>
             <div className="mt-2 flex flex-wrap gap-2">
               {meal.strTags.split(",").map((tag) => (
                 <Badge key={tag.trim()}>{tag.trim()}</Badge>
@@ -123,7 +125,7 @@ export default function Details() {
             aria-label="Watch this recipe on YouTube"
           >
             <Play className="h-4 w-4" />
-            Watch on YouTube
+            {t("watchOnYoutube")}
           </Button>
         ) : null}
       </aside>

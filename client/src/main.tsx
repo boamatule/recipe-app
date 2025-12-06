@@ -11,6 +11,7 @@ import Favorites from "./pages/Favorites";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { Toaster } from "sonner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { TranslationProvider } from "./i18n";
 
 const router = createBrowserRouter([
   {
@@ -26,14 +27,16 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <QueryClientProvider client={queryClient}>
-        <ErrorBoundary>
-          <RouterProvider router={router} />
-        </ErrorBoundary>
-        <Toaster richColors closeButton duration={3500} />
-      </QueryClientProvider>
-    </ThemeProvider>
+    <TranslationProvider>
+      <ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ErrorBoundary>
+            <RouterProvider router={router} />
+          </ErrorBoundary>
+          <Toaster richColors closeButton duration={3500} />
+        </QueryClientProvider>
+      </ThemeProvider>
+    </TranslationProvider>
   </React.StrictMode>
 );
 

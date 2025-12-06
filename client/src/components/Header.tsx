@@ -4,12 +4,14 @@ import { Button } from "./ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 import { Heart } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
+import { useI18n } from "../i18n";
 
 export default function Header() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
   const [value, setValue] = useState(params.get("q") ?? "");
+  const { t } = useI18n();
 
   useEffect(() => {
     setValue(params.get("q") ?? "");
@@ -27,8 +29,8 @@ export default function Header() {
     <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <Link to="/" className="text-xl font-semibold leading-none" aria-label="Home">
-            Holy Recipes
+          <Link to="/" className="text-xl font-semibold leading-none" aria-label={t("home")}>
+            {t("appTitle")}
           </Link>
           <nav className="flex items-center gap-2">
             <Button
@@ -42,7 +44,7 @@ export default function Header() {
             >
               <Heart className="h-5 w-5" />
               <span className="hidden sm:inline">
-                {location.pathname.startsWith("/favorites") ? "Home" : "Favorites"}
+                {location.pathname.startsWith("/favorites") ? t("home") : t("favorites")}
               </span>
             </Button>
             <ThemeToggle />
@@ -54,7 +56,7 @@ export default function Header() {
           </label>
           <Input
             id="search"
-            placeholder="Search recipes..."
+            placeholder={t("searchPlaceholder")}
             value={value}
             onChange={(e) => setValue(e.target.value)}
             className="w-full focus-visible:outline-orange-500"
@@ -63,7 +65,7 @@ export default function Header() {
             type="submit"
             className="whitespace-nowrap bg-orange-500 text-white hover:bg-orange-600"
           >
-            Search
+            {t("search")}
           </Button>
         </form>
       </div>

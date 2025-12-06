@@ -9,6 +9,7 @@ import { useFavorites } from "../hooks/useFavorites";
 import { Button } from "../components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/card";
 import { toast } from "sonner";
+import { useI18n } from "../i18n";
 
 export default function Home() {
   const [params] = useSearchParams();
@@ -16,6 +17,7 @@ export default function Home() {
   const query = params.get("q") ?? "";
   const category = params.get("c");
   const { favorites, isFavorite, toggleFavorite, loading: favLoading } = useFavorites();
+  const { t } = useI18n();
 
   const DEFAULT_CATEGORY = "Beef";
   const activeCategory = category ?? DEFAULT_CATEGORY;
@@ -56,11 +58,11 @@ export default function Home() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between gap-2">
           <div>
-            <CardTitle className="text-2xl">Discover recipes</CardTitle>
-            <p className="text-sm text-muted-foreground">Browse by category or search any dish.</p>
+            <CardTitle className="text-2xl">{t("discoverTitle")}</CardTitle>
+            <p className="text-sm text-muted-foreground">{t("discoverSubtitle")}</p>
           </div>
           <Button variant="outline" onClick={() => navigate("/favorites")}>
-            View favorites
+            {t("viewFavorites")}
           </Button>
         </CardHeader>
         <CardContent>
@@ -85,9 +87,9 @@ export default function Home() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-xl">
-            {query ? `Results for “${query}”` : `Category: ${activeCategory}`}
+            {query ? `${t("resultsFor")} “${query}”` : `${t("categoryLabel")}: ${activeCategory}`}
           </CardTitle>
-          {mealsQuery.isFetching ? <span className="text-sm text-muted-foreground">Loading…</span> : null}
+          {mealsQuery.isFetching ? <span className="text-sm text-muted-foreground">{t("loading")}</span> : null}
         </CardHeader>
         <CardContent>
           {mealsQuery.isLoading ? (
@@ -109,7 +111,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="rounded-lg border border-dashed border-border p-6 text-center text-muted-foreground">
-              No recipes found. Try another search or category.
+              {t("empty")}
             </div>
           )}
         </CardContent>
@@ -118,9 +120,9 @@ export default function Home() {
       {favLoading ? null : favorites.length > 0 ? (
         <section className="space-y-3">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Your favorites (offline)</h3>
+            <h3 className="text-lg font-semibold">{t("favoritesTitle")}</h3>
             <Button variant="ghost" onClick={() => navigate("/favorites")}>
-              Manage
+              {t("manage")}
             </Button>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
