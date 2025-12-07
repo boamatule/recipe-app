@@ -14,7 +14,7 @@ type Props = {
 
 export function MealCard({ meal, onToggleFavorite, favorite }: Props) {
 	return (
-		<Card className="flex h-full min-h-[320px] flex-col overflow-hidden transition hover:shadow-md">
+		<Card className="flex h-full min-h-[260px] flex-col overflow-hidden transition hover:shadow-md">
 			<Link
 				to={`/meal/${meal.idMeal}`}
 				className="relative block aspect-video overflow-hidden"
