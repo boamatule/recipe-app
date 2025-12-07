@@ -63,7 +63,8 @@ export default function Header() {
           />
           <Button
             type="submit"
-            className="whitespace-nowrap bg-orange-500 text-white hover:bg-orange-600"
+            aria-label={t("search")}
+            className="whitespace-nowrap bg-orange-600 text-white hover:bg-orange-700 font-semibold"
           >
             {t("search")}
           </Button>
