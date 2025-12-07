@@ -1,23 +1,25 @@
 {
 	"version": 2,
+	"builds": [
+		{
+			"src": "client/package.json",
+			"use": "@vercel/static-build",
+			"config": { "distDir": "dist" }
+		},
+		{
+			"src": "api/**/*",
+			"use": "@vercel/edge"
+		}
+	],
 	"buildCommand": "cd client && npm install && npm run build",
 	"outputDirectory": "client/dist",
 	"rewrites": [
-		{
-			"source": "/api/(.*)",
-			"destination": "/api/$1"
-		},
+		{ "source": "/api/(.*)", "destination": "/api/$1" },
 		{
 			"source": "/manifest.webmanifest",
 			"destination": "/manifest.webmanifest"
 		},
-		{
-			"source": "/icons/(.*)",
-			"destination": "/icons/$1"
-		},
-		{
-			"source": "/(.*)",
-			"destination": "/index.html"
-		}
+		{ "source": "/icons/(.*)", "destination": "/icons/$1" },
+		{ "source": "/(.*)", "destination": "/index.html" }
 	]
 }
