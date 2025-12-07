@@ -14,7 +14,7 @@ type Props = {
 
 export function MealCard({ meal, onToggleFavorite, favorite }: Props) {
 	return (
-		<Card className="flex h-full flex-col overflow-hidden transition hover:shadow-md">
+		<Card className="flex h-full min-h-[320px] flex-col overflow-hidden transition hover:shadow-md">
 			<Link
 				to={`/meal/${meal.idMeal}`}
 				className="relative block aspect-video overflow-hidden"
@@ -35,7 +35,7 @@ export function MealCard({ meal, onToggleFavorite, favorite }: Props) {
 				)}
 			</Link>
 			<CardHeader className="flex flex-row items-start justify-between gap-3">
-				<CardTitle className="text-base leading-tight">
+				<CardTitle className="line-clamp-2 text-base leading-tight">
 					<Link to={`/meal/${meal.idMeal}`} className="hover:underline">
 						{meal.strMeal}
 					</Link>
@@ -51,7 +51,7 @@ export function MealCard({ meal, onToggleFavorite, favorite }: Props) {
 					<Heart className={cn("h-5 w-5", "fill-orange-500 text-orange-500")} />
 				</Button>
 			</CardHeader>
-			<CardContent className="flex flex-wrap items-center gap-2">
+			<CardContent className="flex flex-1 flex-wrap items-center gap-2">
 				{meal.strCategory ? <Badge>{meal.strCategory}</Badge> : null}
 				{meal.strArea ? <Badge variant="outline">{meal.strArea}</Badge> : null}
 			</CardContent>

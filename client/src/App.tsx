@@ -22,7 +22,7 @@ export default function App() {
         Skip to content
       </a>
       <Header />
-      <main id="main" className="mx-auto max-w-5xl px-4 py-6">
+      <main id="main" role="main" className="mx-auto max-w-5xl px-4 py-6">
         <Outlet />
       </main>
       <footer className="border-t border-border bg-background/80">
