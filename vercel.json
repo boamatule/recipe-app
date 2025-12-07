@@ -1,8 +1,6 @@
 {
   "version": 2,
-  "functions": {
-    "api/**": { "runtime": "edge" }
-  },
+  "functions": { "api/**": { "runtime": "nodejs18.x" } },
   "buildCommand": "cd client && npm install && npm run build",
   "outputDirectory": "client/dist",
   "rewrites": [
